@@ -1,0 +1,521 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #fdfaf6 url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    color: #333;
+    margin: 0;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fffaf5;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.volume-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.task-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"] {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #f4c7c3;
+}
+
+ul.task-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+ul.task-list li {
+    background: #fff;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-controls input {
+    width: 3rem;
+}
+
+.button-row {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+button {
+    background: #c7d2f4;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+button:not(.volume-toggle):not(.favorite-btn):hover {
+    background: #a9b8e4;
+}
+
+.hidden {
+    display: none;
+}
+
+.matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.quadrant {
+    background: #fff5e1;
+    /* darker cream */
+    border-radius: 12px;
+    border: 2px solid #e0d6cf;
+    padding: 1rem;
+    min-height: 150px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quadrant:hover {
+    background-color: #ffe6ef;
+    /* soft pastel pink */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    /* slightly stronger shadow on hover */
+    border: 2px solid rgb(235, 176, 186);
+}
+
+.task-item {
+    background: #fff;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    cursor: grab;
+}
+
+.pomodoro-settings {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pomodoro-settings label {
+    flex: 1 1 auto;
+    min-width: 120px;
+    font-weight: bold;
+}
+
+.schedule-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.time-slot {
+    display: flex;
+    align-items: center;
+    background: #fef3f7;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.time-label {
+    width: 120px;
+    font-weight: bold;
+}
+
+.task-dropzone {
+    flex: 1;
+    min-height: 40px;
+    border: 2px dashed #f4c7c3;
+    border-radius: 10px;
+    padding: 0.5rem;
+    background: #fff;
+}
+
+.task-card {
+    background: #f4c7c3;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card.completed {
+    background: #e4c0c8 !important;
+    /* darker pink */
+    text-decoration: line-through;
+    opacity: 0.9;
+}
+
+.break-card {
+    background: #d2eaff !important;
+    /* light blue for breaks */
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Completed Tasks Page */
+#completedPage {
+    display: none;
+    margin-top: 2rem;
+}
+
+#completedPage h2 {
+    margin-bottom: 1rem;
+}
+
+#completedList {
+    list-style: none;
+    padding: 0;
+}
+
+#completedList li {
+    background: #e4c0c8;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    color: #4b2e3b;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: line-through;
+}
+
+#completedPage button {
+    margin-top: 1rem;
+    background: #c7d2f4;
+}
+
+#celebrationPage h2 {
+    font-size: 2.5rem;
+    color: #d1a4a4;
+    margin-bottom: 0.5rem;
+}
+
+#celebrationPage p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+#celebrationPage ul li {
+    animation: popIn 0.3s ease both;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes confetti {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: red;
+    animation: confetti 1s ease-out forwards;
+}
+
+/* Cute dropdown styling */
+#recurringOverlay select {
+    background-color: #d2eaff;
+    border: 2px solid #a2c6e8;
+    border-radius: 12px;
+    padding: 0.4rem 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #5a4a42;
+    appearance: none;
+    /* remove default arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%235a4a42" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+#recurringOverlay select:hover,
+#recurringOverlay select:focus {
+    border-color: #d1a4a4;
+    outline: none;
+}
+
+/* Light blue cute dropdown for pomodoros */
+select.pomodoro-select {
+    background-color: #d2eaff;
+    border: 2px solid #a2c6e8;
+    border-radius: 12px;
+    padding: 0.4rem 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #4b4b4b;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%234b4b4b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+select.pomodoro-select:hover,
+select.pomodoro-select:focus {
+    border-color: #4fc7df;
+    outline: none;
+}
+
+.pomodoro-select {
+    border: 1px solid #add8f4;
+    background: #e9f6ff;
+    padding: 0.4rem 0.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg fill='gray' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    background-size: 1rem;
+}
+
+
+#recurringOverlay::-webkit-scrollbar {
+    width: 12px;
+}
+
+#recurringOverlay::-webkit-scrollbar-track {
+    background: #fff5e1;
+    border-radius: 10px;
+}
+
+#recurringOverlay::-webkit-scrollbar-thumb {
+    background: #f4c7c3;
+    border-radius: 10px;
+    border: 2px solid #fff5e1;
+}
+
+#recurringOverlay::-webkit-scrollbar-thumb:hover {
+    background: #e4aab3;
+}
+
+/* Firefox support */
+#recurringOverlay {
+    scrollbar-color: #f4c7c3 #fff5e1;
+    scrollbar-width: thin;
+}
+
+.recurring-task-card {
+    background: #f4ffff;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recurring-controls {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.recurring-controls button {
+    background: #bcc4e8;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.recurring-controls button:hover {
+    background: #a2b4e8;
+}
+
+.recurring-controls .delete-btn {
+    background: #f4c7c3;
+}
+
+.recurring-controls .delete-btn:hover {
+    background: #e4aab3;
+}
+
+#recurringList {
+    padding-bottom: 2rem;
+}
+
+#recurringPomodoros {
+    margin-bottom: 0.5rem;
+}
+
+#recurringName {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+#SaveRecurringBtn {
+    width: 100%;
+    background-color: #fdf6b2;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-weight: bold;
+    color: #5c4a1d;
+    cursor: pointer;
+    box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#SaveRecurringBtn:hover {
+    background-color: #fce96a;
+    box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.recurring-toggle {
+
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: #b4c7ff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border: none;
+    z-index: 1100;
+}
+
+.recurring-task-card button.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+}
+
+button.favorite-btn:hover {
+    background: #e5fff8;
+    transition: color 0.3s ease;
+}
+
+/* Add to your existing <style> tag */
+.page-transition {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.page-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🌸 Soft aesthetic scrollbar */
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #fdf6f0;
+    /* cream/paper tone */
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #e8bcbc;
+    /* soft pink */
+    border-radius: 10px;
+    border: 3px solid #fdf6f0;
+    /* same as track for spacing */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #e09ca9;
+    /* deeper pastel pink on hover */
+}
+
+body {
+    scrollbar-width: thick;
+    scrollbar-color: #e8bcbc #fdf6f0;
+}

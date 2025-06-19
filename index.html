@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Day, My Way - Updated</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <button class="volume-toggle" onclick="toggleSound()" id="volumeBtn">🔊</button>
+    <h1>My Day, My Way</h1>
+
+    <!-- Task Page -->
+    <div id="taskPage">
+      <div class="task-input">
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button onclick="addTask()">+</button>
+      </div>
+
+      <ul id="taskList" class="task-list"></ul>
+
+      <div class="button-row">
+        <button onclick="organizeTasksWithAI()">Organize Tasks 🧠</button>
+        <button onclick="showSchedule()">Go to Schedule ⏱️</button>
+      </div>
+
+      <div id="matrix" class="matrix hidden">
+        <div class="quadrant" id="iu" ondragover="allowDrop(event)" ondrop="drop(event, 'iu')">
+          <h3>Important & Urgent</h3>
+        </div>
+        <div class="quadrant" id="inu" ondragover="allowDrop(event)" ondrop="drop(event, 'inu')">
+          <h3>Important & Not Urgent</h3>
+        </div>
+        <div class="quadrant" id="niu" ondragover="allowDrop(event)" ondrop="drop(event, 'niu')">
+          <h3>Not Important & Urgent</h3>
+        </div>
+        <div class="quadrant" id="ninu" ondragover="allowDrop(event)" ondrop="drop(event, 'ninu')">
+          <h3>Not Important & Not Urgent</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule Page -->
+    <div id="schedulePage" class="hidden">
+      <h2>Pomodoro Settings</h2>
+      <div class="pomodoro-settings">
+        <label>Pomodoros Between Breaks:
+          <select id="pomoBeforeLong" class="pomodoro-select">
+            <option value="1">1 🍅</option>
+            <option value="2">2 🍅🍅</option>
+            <option value="3">3 🍅🍅🍅</option>
+            <option value="4" selected>4 🍅🍅🍅🍅</option>
+            <option value="5">5 🍅🍅🍅🍅🍅</option>
+          </select>
+        </label>
+        <label>Break length:
+          <select id="longBreak" class="pomodoro-select">
+            <option value="15">15 minutes</option>
+            <option value="30" selected>30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </label>
+        <label>Day start time:
+          <select id="daystart" class="pomodoro-select"></select>
+        </label>
+        <label>Day end time:
+          <select id="dayend" class="pomodoro-select">
+            <!--Options added by JS-->
+          </select>
+        </label>
+      </div>
+
+      <div class="button-row">
+        <button onclick="generateSchedule()">🧁 Generate Schedule</button>
+        <button onclick="partialUpdate()">🔄 Partial Schedule Update</button>
+        <button onclick="goBack()">← Back to Tasks</button>
+        <button onclick="showCelebrationPage()">🎉 Complete Day</button>
+      </div>
+
+      <div id="scheduleGrid" class="schedule-grid"></div>
+    </div>
+
+    <!-- Celebration Page -->
+    <div id="celebrationPage" class="hidden">
+      <h2>🎉 Congratulations!</h2>
+      <p style="font-style: italic;">You did amazing today 💖</p>
+
+      <p>You completed these tasks today:</p>
+      <ul id="completedList" class="task-list"></ul>
+
+      <div class="button-row">
+        <button onclick="goBack()">← Back to Tasks</button>
+        <button onclick="confirmFinishDay()">🌅 Finish Day</button>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="hidden" style="
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3); display: none; justify-content: center; align-items: center;
+">
+      <div style="
+    background: #fffaf5; padding: 2rem; border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-align: center; max-width: 300px;
+  ">
+        <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Are you sure you want to finish your day? All tasks will be
+          cleared 🌸</p>
+        <div class="button-row" style="justify-content: center;">
+          <button onclick="finishDay()">Yes, I'm done 🌙</button>
+          <button onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <!-- Confetti Container -->
+    <div id="confettiContainer"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+
+    <!-- Recurring Tasks Overlay -->
+    <div id="recurringOverlay" style="
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 350px;
+  height: 100%;
+  background: #fffaf5;
+  border-right: 2px solid #e0d6cf;
+  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+  transition: left 0.4s ease;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 3.5rem 1rem 2rem 1rem;
+">
+      <h2>📋 Recurring Tasks
+        <button id="toggleWidthBtn" style="background: none; padding: 2px 2px 2px 2px;">⛶</button>
+      </h2>
+      <input type="text" id="recurringName" placeholder="Task name..." style="width: 100%; margin-bottom: 0.5rem;">
+      <select id="recurringQuadrant" style="width: 100%; margin-bottom: 0.5rem;">
+        <option value="">Random placement</option>
+        <option value="iu">Important & Urgent</option>
+        <option value="inu">Important & Not Urgent</option>
+        <option value="niu">Not Important & Urgent</option>
+        <option value="ninu">Not Important & Not Urgent</option>
+      </select>
+      <select class="pomodoro-select" id="recurringPomodoros">
+        <option value="1">1 🍅</option>
+        <option value="2">2 🍅🍅</option>
+        <option value="3">3 🍅🍅🍅</option>
+        <option value="4">4 🍅🍅🍅🍅</option>
+        <option value="5">5 🍅🍅🍅🍅🍅</option>
+      </select>
+
+      <button id="SaveRecurringBtn" onclick="saveRecurringTask()">➕ Save Recurring Task</button>
+
+      <ul id="recurringList" style="margin-top: 1rem; padding-left: 0; list-style: none;"></ul>
+    </div>
+
+    <!-- Toggle Button -->
+    <button onclick="toggleRecurringPanel()" class="recurring-toggle">📋 Recurring</button>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
