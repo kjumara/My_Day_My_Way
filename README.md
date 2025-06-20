@@ -97,35 +97,47 @@ No installation required!
 
 ### Scheduling Pomodoro Sessions
 
+![Schedule Page Screenshot](images/schedule_page.png)
+
 - Click **"Go to Schedule ⏱️"** to view your Pomodoro schedule.  
 - Use the **Pomodoro Settings** to adjust:  
   - Number of Pomodoros before a long break  
   - Length of long breaks  
   - Start and end times for your day  
 - Click **"Generate Schedule"** to create your Pomodoro timeline based on your prioritized tasks.  
-- Drag and drop task cards in the schedule to reorder or swap tasks easily.  
+- Drag and drop task cards in the schedule to reorder or swap tasks easily.
+  ![Partial Schedule Update Screenshot](images/partial_schedule_update.png)
 - Click **"Partial Schedule Update"** to re-generate the schedule starting from the current time, skipping completed tasks.
 
 ### Managing Recurring Tasks
+
+![Recurring Tasks Page](images/recurring_tasks_page.png)
 
 - Click the **"📋 Recurring"** button (bottom right) to open the Recurring Tasks panel.  
 - Add tasks you do often, assign quadrants and Pomodoro counts.  
 - Favorite recurring tasks with ❤️ to sort them to the top.  
 - Add any recurring task to today’s tasks with one click.  
 - Manage recurring tasks by deleting or toggling favorites.
+- Recurring tasks are not deleted when the day is reset
 
 ### Marking Tasks as Complete
 
-- On both the Task list and Schedule pages, checkboxes let you mark tasks complete.  
+![Marked Complete Screenshot](images/marked_complete.png)
+
+- On both the Schedule pages, checkboxes let you mark tasks complete.  
 - Completed tasks are automatically moved out of the main task list and scheduled out.  
 - The task card color changes to visually confirm completion.
 
 ### Celebrating Your Day
 
+![Completed Day Page Screenshot](images/completed_day.png)
+
 - When you’re done, click **"🎉 Complete Day"** on the Schedule page.  
-- This shows a celebration page with a congratulatory message, a list of completed tasks, and a confetti burst.  
-- Click **"🌅 Finish Day"** to confirm and clear all tasks for a fresh start tomorrow.  
-- You can toggle sound effects on/off with the volume button (🔊/🔇).
+- This shows a celebration page with a congratulatory message, a list of completed tasks, and a confetti burst.
+![Reset Day Button](images/reset_day.png)
+- Click **"🌅 Finish Day"** to confirm and clear all tasks for a fresh start tomorrow.
+- This clears all daily tasks but leaves recurring tasks intact
+![Recurring Tasks Remain After Reset Screenshot](images/recurring_tasks_remain.png)
 
 ---
 
