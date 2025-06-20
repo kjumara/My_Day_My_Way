@@ -2,6 +2,8 @@
 
 A cozy, pastel-themed workday organizer with task management, Eisenhower matrix prioritization, customizable Pomodoro scheduling, drag-and-drop task reordering, recurring tasks, and delightful celebration animations to keep you motivated!
 
+![Screenshot of Main page View](images/base_ui.png)
+
 ---
 
 ## Table of Contents
@@ -28,14 +30,14 @@ A cozy, pastel-themed workday organizer with task management, Eisenhower matrix 
 
 **My Day, My Way** helps you organize your workday by combining:
 
-- A simple task list with Pomodoro timers  
+- A simple task list with time organized by amount of pomodoros a task will take
 - An Eisenhower matrix to prioritize by urgency & importance  
 - A drag-and-drop interface for organizing tasks easily  
-- Customizable Pomodoro session and break lengths  
+- Customizable Pomodoro amounts and break lengths  
 - Recurring tasks to save time on daily routines  
 - A fun celebration page with confetti and sounds when you finish your day!
 
-The whole experience is designed with a warm, cozy pastel aesthetic to keep your workflow joyful.
+The whole experience is designed with a warm, cozy pastel aesthetic to keep your workflow fun!
 
 ---
 
@@ -46,12 +48,12 @@ The whole experience is designed with a warm, cozy pastel aesthetic to keep your
 - **Generate a Pomodoro schedule** prioritized by task importance and urgency  
 - **Drag and drop** tasks within the schedule to reorder or swap tasks easily  
 - **Partial schedule update** starting from current time, skipping completed tasks  
-- **Mark tasks complete** with checkboxes that update your lists automatically  
+- **Mark tasks complete** with checkboxes that update your lists on next schedule update 
 - **Recurring tasks**: save, favorite, add to today with one click  
 - **Daily celebration page** with confetti and sounds to reward progress  
 - **Custom Pomodoro settings**: number of Pomodoros before a long break, length of breaks, start and end of your workday  
 - **Sound toggle** to enable/disable cute sound effects  
-- **Smooth page transitions** and subtle fade animations  
+- **Smooth page transitions**
 - **Persistent data storage** via `localStorage` — your tasks and settings save across browser sessions
 
 ---
@@ -68,20 +70,29 @@ No installation required!
 
 ### Adding Tasks
 
+![Screenshot of Adding Tasks](images/adding_tasks.png)
+
+![Screenshot of Setting Pomodoros](images/setting_pomodoros.png)
+
 1. Type your task into the input field on the **Task Page**.  
 2. Click the **"+" button** or press Enter.  
-3. Each task defaults to 1 Pomodoro 🍅 but you can adjust that later.  
+3. Each task defaults to 1 Pomodoro 🍅 but you can adjust that later.
 4. Tasks appear in your task list ready for organization.
 
+> Note: If you've already organized your tasks into the Eisenhower Matrix, new tasks won’t immediately appear in the list. Use “Organize Tasks” again to place them randomly in a quadrant, or refresh the page to reset and adjust Pomodoros before organizing.
+
 ### Organizing Tasks with the Eisenhower Matrix
+
+![Organize Tasks Screenshot](images/organize_tasks.png)
 
 - Click **"Organize Tasks 🧠"** to reveal the Eisenhower matrix with four quadrants:  
   - Important & Urgent  
   - Important & Not Urgent  
   - Not Important & Urgent  
   - Not Important & Not Urgent  
-- Your tasks will be randomly assigned to quadrants initially.  
-- Drag and drop tasks between quadrants to prioritize your day exactly how you want.  
+- Your tasks will be randomly assigned to quadrants initially.
+- Drag and drop tasks between quadrants to prioritize your day exactly how you want.
+- Set prioritizations persist when tasks are reorganized  
 - This matrix guides the Pomodoro schedule generation by priority.
 
 ### Scheduling Pomodoro Sessions
