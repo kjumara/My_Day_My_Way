@@ -223,14 +223,20 @@ function moveCompletedTasks() {
 // Generate schedule from tasks array sorted by quadrantPriority
 function getTasksByMatrixPriority() {
     const taskQueue = [];
+    let pomoCount = 0;
+    const beforeLong = parseInt(document.getElementById("pomoBeforeLong").value);
 
     quadrantPriority.forEach(quadrantId => {
         const filteredTasks = tasks.filter(t => !t.completed && t.quadrant === quadrantId);
         filteredTasks.forEach(task => {
             for (let i = 0; i < task.pomodoros; i++) {
                 taskQueue.push({ type: "task", text: task.text, id: task.text + "-" + i });
-                const needsBreak = ((i + 1) % parseInt(document.getElementById("pomoBeforeLong").value)) === 0;
-                taskQueue.push({ type: "break", text: needsBreak ? "Long Break" : "Short Break" });
+                pomoCount++;
+                if (pomoCount % beforeLong === 0) {
+                    taskQueue.push({ type: "break", text: "Long Break" });
+                } else {
+                    taskQueue.push({ type: "break", text: "Short Break" });
+                }
             }
         });
     });
@@ -751,4 +757,3 @@ toggleWidthBtn.addEventListener("click", () => {
     }
     isExpanded = !isExpanded;
 });
-
